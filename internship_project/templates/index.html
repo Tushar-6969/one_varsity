@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Microservices</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body class="bg-light">
+
+    <div class="container py-5">
+        <div class="card shadow-lg p-4 rounded-4">
+            <h1 class="text-center mb-4">AI Microservices</h1>
+            <p class="text-center text-muted">Choose a task and provide input below</p>
+
+            <form action="/result" method="post" class="mt-4">
+                
+                <!-- Task Selection -->
+                <div class="mb-3">
+                    <label class="form-label"><strong>Choose Task</strong></label>
+                    <select name="task" id="taskSelect" class="form-select" required onchange="toggleFields()">
+                        <option value="summarize">Summarization</option>
+                        <option value="qa">Q&A</option>
+                        <option value="learn">Learning Path Suggestion</option>
+                    </select>
+                </div>
+
+                <!-- Summarization -->
+                <div class="mb-3 task-field" id="summarizeField">
+                    <label class="form-label"><strong>Text</strong></label>
+                    <textarea name="text" class="form-control" rows="4" placeholder="Enter text to summarize..."></textarea>
+                </div>
+
+                <!-- Q&A -->
+                <div class="task-field d-none" id="qaField">
+                    <div class="mb-3">
+                        <label class="form-label"><strong>Context</strong></label>
+                        <textarea name="context" class="form-control" rows="4" placeholder="Enter context for Q&A..."></textarea>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label"><strong>Question</strong></label>
+                        <input type="text" name="question" class="form-control" placeholder="Enter your question...">
+                    </div>
+                </div>
+
+                <!-- Learning Path -->
+                <div class="mb-3 task-field d-none" id="learnField">
+                    <label class="form-label"><strong>Topic</strong></label>
+                    <input type="text" name="topic" class="form-control" placeholder="Enter a topic for learning path...">
+                </div>
+
+                <!-- Submit -->
+                <div class="d-grid mt-4">
+                    <button type="submit" class="btn btn-primary btn-lg rounded-pill shadow">Submit</button>
+                </div>
+
+            </form>
+        </div>
+    </div>
+
+    <script>
+        function toggleFields() {
+            let task = document.getElementById("taskSelect").value;
+            document.querySelectorAll(".task-field").forEach(el => el.classList.add("d-none"));
+            
+            if (task === "summarize") {
+                document.getElementById("summarizeField").classList.remove("d-none");
+            } else if (task === "qa") {
+                document.getElementById("qaField").classList.remove("d-none");
+            } else if (task === "learn") {
+                document.getElementById("learnField").classList.remove("d-none");
+            }
+        }
+        // Run on page load
+        toggleFields();
+    </script>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
